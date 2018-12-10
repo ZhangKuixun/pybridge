@@ -49,9 +49,7 @@ Run the project in the Android Studio and you should see a `Hello Python 3.5` me
 
 2、Mac Os 下载 crystax-ndk-...-darwin-x86_64.tar
 
-3、"cd到`app/src/main/jni`，然后运行`path/to/crystax/ndk-build`"，这句话主要是编译so库。
-    运行`path/to/crystax/ndk-build`会有异常，所以换一句话执行：`ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk`。或者cd到jni目录，输入`ndk-build`进行编译，最后会在jni同级目录生成libs文件，.so文件就在里面。
-    完成之后在`src/main/jni`目录下多了一个`libs`和`obj`文件。将`libs`拷贝到`src/main/`下面。
+3、"cd到`app/src/main/jni`，然后运行`path/to/crystax/ndk-build`"，这句话主要是编译so库。运行`path/to/crystax/ndk-build`会有异常，所以换一句话执行：`ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk`。完成之后在`src/main/jni`目录下多了一个`libs`和`obj`文件。将`libs`拷贝到`src/main/`下面。
 
 在Android Studio中运行项目，您会在屏幕上看到一条消息"Hello Python 3.5"。
 
