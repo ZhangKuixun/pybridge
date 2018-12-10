@@ -1,5 +1,6 @@
 LOCAL_PATH := $(call my-dir)
-CRYSTAX_PATH := /Users/jventura/Library/Android/crystax-ndk-10.3.2
+# CRYSTAX_PATH := /Users/jventura/Library/Android/crystax-ndk-10.3.2
+CRYSTAX_PATH := /usr/local/Caskroom/crystax-ndk/10.3.2/crystax-ndk-10.3.2
 
 
 # Build libpybridge.so
