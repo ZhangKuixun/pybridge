@@ -29,7 +29,22 @@ To build the pybridge shared library you will need to download the Crystax NDK f
 https://www.crystax.net/en/download. Open the `app/src/main/jni/Android.mk` file and change the
 `CRYSTAX_PATH` to match the path of your Crystax NDK installation. Finally, open the terminal,
 cd to `app/src/main/jni`, and run `path/to/crystax/ndk-build`. You should have libcrystax, 
-libpython3.5 and libpybridge in src/main/libs.
+libpython3.5 and libpybridge in `src/main/libs`.
+关于上面这一段操作流程的执行遇到的问题：
+翻译：
+克隆此项目并在最新的Android Studio上打开它。
+要构建pybridge共享库，您需要从 https://www.crystax.net/en/download 下载 Crystax-NDK。打开`app/src/main/jni/Android.mk`文件
+并更改 CRYSTAX_PATH 以匹配 Crystax-NDK 安装的路径。最后，打开终端，cd到`app/src/main/jni`，然后运行`path/to/crystax/ndk-build`。
+在`src/main/libs`中有 libcrystax，libpython3.5和libpybridge。
+问题：
+1、下载过程中会很漫长2小时左右
+2、Mac Os 下载 crystax-ndk-...-darwin-x86_64.tar
+3、"cd到`app/src/main/jni`，然后运行`path/to/crystax/ndk-build`"，这句话主要是编译so库。运行`path/to/crystax/ndk-build`会有异常，
+    所以换一句话执行：`ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk`。
+    完成之后在`src/main/jni`目录下多了一个`libs`和`obj`文件。将`libs`拷贝到`src/main/`下面。
+
+在Android Studio中运行项目，您会在屏幕上看到一条消息"Hello Python 3.5"。
+
 
 Run the project in the Android Studio and you should see a `Hello Python 3.5` message in the screen.
 
