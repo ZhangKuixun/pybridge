@@ -31,6 +31,8 @@ https://www.crystax.net/en/download. Open the `app/src/main/jni/Android.mk` file
 cd to `app/src/main/jni`, and run `path/to/crystax/ndk-build`. You should have libcrystax, 
 libpython3.5 and libpybridge in `src/main/libs`.
 
+Run the project in the Android Studio and you should see a `Hello Python 3.5` message in the screen.
+
 关于上面这一段操作流程的执行遇到的问题：
 
 翻译：
@@ -52,9 +54,6 @@ libpython3.5 and libpybridge in `src/main/libs`.
     完成之后在`src/main/jni`目录下多了一个`libs`和`obj`文件。将`libs`拷贝到`src/main/`下面。
 
 在Android Studio中运行项目，您会在屏幕上看到一条消息"Hello Python 3.5"。
-
-
-Run the project in the Android Studio and you should see a `Hello Python 3.5` message in the screen.
 
 
 ## How it works
