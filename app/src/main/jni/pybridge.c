@@ -99,7 +99,6 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
     // 为Python解释器构建路径
     char paths[512];
     snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip", pypath, pypath);
-    LOG("");
 
     // 设置Python路径
     wchar_t *wchar_paths = Py_DecodeLocale(paths, NULL);
@@ -109,9 +108,10 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
     PyImport_AppendInittab("androidlog", PyInit_androidlog);
     Py_Initialize();
     setAndroidLog();
-
+    LOG("--------------------");
     // 运行 bootstrap
     PyRun_SimpleString("import bootstrap");
+    LOG("--------------------");
 
     // 清理
     (*env)->ReleaseStringUTFChars(env, path, pypath);
@@ -145,23 +145,40 @@ JNIEXPORT jstring JNICALL Java_com_jventura_pybridge_PyBridge_call
     jboolean iscopy;
     const char *payload_utf = (*env)->GetStringUTFChars(env, payload, &iscopy);
     LOG("----------1");
+    LOG(payload_utf);
     // 引入模块
     PyObject* myModuleString = PyUnicode_FromString((char*)"bootstrap");
     PyObject* myModule = PyImport_Import(myModuleString);
     LOG("----------2");
+    if(myModuleString){
+    LOG("----------2.1");
+    }
+    if(myModule){
+    LOG("----------2.2");
+    }
 
     // 获取被调用函数的引用
     PyObject* myFunction = PyObject_GetAttrString(myModule, (char*)"router");
     PyObject* args = PyTuple_Pack(1, PyUnicode_FromString(payload_utf));
     LOG("----------3");
+    if(args){
+    LOG("----------3.1");
+    }
     if(myFunction){
-    LOG("------------");
+    LOG("----------3.2");
     }
 
     // 调用函数并得到结果字符串
     PyObject* myResult = PyObject_CallObject(myFunction, args);
     char *myResultChar = PyUnicode_AsUTF8(myResult);
+    PyRun_SimpleString("import bootstrap");
     LOG("----------4");
+    if(myResult){
+    LOG("----------4.1");
+    }
+    if(myResultChar){
+    LOG("----------4.2");
+    }
 
     // 将结果存储在 java.lang.String 对象上
     jstring result = (*env)->NewStringUTF(env, myResultChar);

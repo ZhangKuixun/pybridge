@@ -91,7 +91,7 @@ public class AssetExtractor {
      * @return String with the data dir path.
      */
     public String getAssetsDataDir() {
-        String appDataDir = mContext.getApplicationInfo().dataDir;
+        String appDataDir = mContext.getApplicationInfo().dataDir;// /data/user/0/com.jventura.pyapp
         return appDataDir + "/assets/";
     }
 
@@ -159,7 +159,7 @@ public class AssetExtractor {
      * @param path: the path to the assets folder
      */
     public void removeAssets(String path) {
-        File file = new File(getAssetsDataDir() + path);
+        File file = new File(getAssetsDataDir() + path);// /data/user/0/com.jventura.pyapp/assets/python
         recursiveDelete(file);
     }
 

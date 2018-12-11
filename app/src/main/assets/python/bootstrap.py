@@ -1,10 +1,29 @@
-"""
- This file is executed when the Python interpreter is started.
- Use this file to configure all your necessary python code.
+# from __future__ import unicode_literals
+import sys
+import os
+# if __package__ is None and not hasattr(sys, 'frozen'):
+# import os.path
+# path = os.path.realpath(os.path.abspath(__file__))
+# print("pathpath="+path)
+# sys.path.insert(0, os.path.dirname(os.path.dirname(path)))
+# sys.path.insert(0, os.path.dirname(path))
+# print("pathpath---"+os.path.dirname(os.path.dirname(path)))
 
-"""
 
+# dirname = os.path.dirname(os.path.realpath(__file__))
+# print("pathpath---" + dirname)
+# a_ = dirname + '/libs/' + 'arm64-v8a/select.so'
+# sys.path.insert(0, a_)
+# print("pathpath---" + a_)
+
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)) + '/libs/armeabi')
+
+
+import youtube_dl # this error
+# from youtube_dl import YoutubeDL
 import json
+
 
 
 def router(args):

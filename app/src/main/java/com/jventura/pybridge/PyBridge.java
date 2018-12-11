@@ -1,7 +1,9 @@
 package com.jventura.pybridge;
 
-import org.json.JSONObject;
+import android.os.Build;
+
 import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class PyBridge {
@@ -36,17 +38,20 @@ public class PyBridge {
      * @return JSON response
      */
     public static JSONObject call(JSONObject payload) {
-        String result = call(payload.toString());
         try {
+            String[] abis = Build.SUPPORTED_ABIS;
+            payload.put("architecture", abis[0]);
+            String result = call(payload.toString());
             return new JSONObject(result);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
-
     // Load library
     static {
         System.loadLibrary("pybridge");
+//        System.loadLibrary("python3.5m");
+//        System.loadLibrary("crystax");
     }
 }
