@@ -93,26 +93,27 @@ JNIEXPORT jint JNICALL Java_com_jventura_pybridge_PyBridge_start
 {
     LOG("Initializing the Python interpreter");
 
-    // Get the location of the python files
+    // 获取Python文件的位置
     const char *pypath = (*env)->GetStringUTFChars(env, path, NULL);
 
-    // Build paths for the Python interpreter
+    // 为Python解释器构建路径
     char paths[512];
     snprintf(paths, sizeof(paths), "%s:%s/stdlib.zip", pypath, pypath);
+    LOG("");
 
-    // Set Python paths
+    // 设置Python路径
     wchar_t *wchar_paths = Py_DecodeLocale(paths, NULL);
     Py_SetPath(wchar_paths);
 
-    // Initialize Python interpreter and logging
+    // 初始化Python解释器和日志
     PyImport_AppendInittab("androidlog", PyInit_androidlog);
     Py_Initialize();
     setAndroidLog();
 
-    // Bootstrap
+    // 运行 bootstrap
     PyRun_SimpleString("import bootstrap");
 
-    // Cleanup
+    // 清理
     (*env)->ReleaseStringUTFChars(env, path, pypath);
     PyMem_RawFree(wchar_paths);
 
@@ -140,24 +141,31 @@ JNIEXPORT jstring JNICALL Java_com_jventura_pybridge_PyBridge_call
 {
     LOG("Call into Python interpreter");
 
-    // Get the payload string
+    // 获取 payload 字符串
     jboolean iscopy;
     const char *payload_utf = (*env)->GetStringUTFChars(env, payload, &iscopy);
-
-    // Import module
+    LOG("----------1");
+    // 引入模块
     PyObject* myModuleString = PyUnicode_FromString((char*)"bootstrap");
     PyObject* myModule = PyImport_Import(myModuleString);
+    LOG("----------2");
 
-    // Get reference to the router function
+    // 获取被调用函数的引用
     PyObject* myFunction = PyObject_GetAttrString(myModule, (char*)"router");
     PyObject* args = PyTuple_Pack(1, PyUnicode_FromString(payload_utf));
+    LOG("----------3");
+    if(myFunction){
+    LOG("------------");
+    }
 
-    // Call function and get the resulting string
+    // 调用函数并得到结果字符串
     PyObject* myResult = PyObject_CallObject(myFunction, args);
     char *myResultChar = PyUnicode_AsUTF8(myResult);
+    LOG("----------4");
 
-    // Store the result on a java.lang.String object
+    // 将结果存储在 java.lang.String 对象上
     jstring result = (*env)->NewStringUTF(env, myResultChar);
+    LOG("----------5");
 
     // Cleanup
     (*env)->ReleaseStringUTFChars(env, payload, payload_utf);

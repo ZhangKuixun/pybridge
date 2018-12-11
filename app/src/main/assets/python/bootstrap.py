@@ -14,13 +14,17 @@ def router(args):
     :param args: JSON arguments
     :return: JSON response
     """
+    # print("args: %s" % args)
     values = json.loads(args)
+    # print("values: %s" % values)
 
     try:
         function = routes[values.get('function')]
+        # print("function: %s" % function)
 
         status = 'ok'
         res = function(values)
+        # print("res: %s" % res)
     except KeyError:
         status = 'fail'
         res = None
